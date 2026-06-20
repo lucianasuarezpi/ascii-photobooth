@@ -436,10 +436,24 @@ const photoboothStation = (() => {
     }
   }
 
+  function drawCover(ctx, src, srcW, srcH) {
+    const targetAspect = PHOTO_W / PHOTO_H;
+    const sourceAspect = srcW / srcH;
+    let sx, sy, sw, sh;
+    if (sourceAspect > targetAspect) {
+      sh = srcH; sw = srcH * targetAspect;
+      sx = (srcW - sw) / 2; sy = 0;
+    } else {
+      sw = srcW; sh = srcW / targetAspect;
+      sx = 0; sy = (srcH - sh) / 2;
+    }
+    ctx.drawImage(src, sx, sy, sw, sh, 0, 0, PHOTO_W, PHOTO_H);
+  }
+
   function captureFrame() {
     const raw = document.createElement('canvas');
     raw.width = PHOTO_W; raw.height = PHOTO_H;
-    raw.getContext('2d').drawImage(videoDisplay, 0, 0, PHOTO_W, PHOTO_H);
+    drawCover(raw.getContext('2d'), videoDisplay, videoDisplay.videoWidth, videoDisplay.videoHeight);
     addPhoto(applyEffect(raw));
   }
 
@@ -458,7 +472,7 @@ const photoboothStation = (() => {
         img.onload = () => {
           const raw = document.createElement('canvas');
           raw.width = PHOTO_W; raw.height = PHOTO_H;
-          raw.getContext('2d').drawImage(img, 0, 0, PHOTO_W, PHOTO_H);
+          drawCover(raw.getContext('2d'), img, img.naturalWidth, img.naturalHeight);
           addPhoto(applyEffect(raw));
         };
         img.src = e.target.result;
