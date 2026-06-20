@@ -909,8 +909,7 @@ main::-webkit-scrollbar { display: none; }
   color: var(--boothie-blue);
   pointer-events: none;
   z-index: 200;
-  opacity: 0;
-  animation: swipe-hint-show 5s ease forwards;
+  opacity: 1;
   backdrop-filter: blur(6px);
   box-shadow: 0 2px 12px rgba(58, 78, 107, 0.1);
 }
