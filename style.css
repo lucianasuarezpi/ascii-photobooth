@@ -865,4 +865,15 @@ main::-webkit-scrollbar { display: none; }
   .pb-slots { grid-template-columns: repeat(2, 1fr); }
   .nav-links { gap: 4px; }
   .nav-links a { padding: 5px 10px; font-size: 0.8rem; }
+
+  /* Station 1: stack terminal + side panel vertically */
+  .ascii-main-row { flex-direction: column; }
+  .ascii-side-panel { flex-direction: row; flex-wrap: wrap; gap: 12px; padding-top: 0; }
+  .terminal-frame { width: 100%; }
+  .terminal-body { overflow-x: auto; }
+  .ascii-pre { font-size: 5.5px; }
+
+  /* Station 2: prevent sign overflow */
+  .machine-sign-box { font-size: 1rem; letter-spacing: 0.1em; padding: 8px 16px; }
+  .machine-poles { gap: 50px; }
 }

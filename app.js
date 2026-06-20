@@ -263,7 +263,7 @@ const photoboothStation = (() => {
   const videoDisplay= document.getElementById('pb-video-display');
   const countdownEl = document.getElementById('pb-countdown');
 
-  const PHOTO_W = 400, PHOTO_H = 300;
+  const PHOTO_W = 300, PHOTO_H = 400;
 
   // ── Effect pipeline ──────────────────────────────────────────
   function applyEffect(srcCanvas) {
