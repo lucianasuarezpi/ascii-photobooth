@@ -62,8 +62,8 @@ const state = {
 
 /* ─── ASCII character ramp (dark → light) ───────────────────── */
 const ASCII_RAMP = '@#S%?*+;:,. ';
-const COLS = 110;
-const ROWS = 55;
+const COLS = window.innerWidth < 680 ? 70 : 110;
+const ROWS = window.innerWidth < 680 ? 35 : 55;
 
 /* ═══════════════════════════════════════════════════════════════
    STATION 1 — LIVE ASCII CAMERA
@@ -445,7 +445,12 @@ const photoboothStation = (() => {
 
   // ── File upload ───────────────────────────────────────────────
   uploadInput.addEventListener('change', () => {
-    const files = Array.from(uploadInput.files).slice(0, 4 - state.pbPhotos.length);
+    const remaining = 4 - state.pbPhotos.length;
+    const allFiles = Array.from(uploadInput.files);
+    if (allFiles.length > remaining) {
+      alert(`Only ${remaining} more photo${remaining === 1 ? '' : 's'} needed. Using the first ${remaining}.`);
+    }
+    const files = allFiles.slice(0, remaining);
     files.forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
@@ -830,3 +835,13 @@ function triggerDownload(canvas, filename) {
 
 // Footer year
 document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+// Swipe hint — hide on first scroll
+const swipeHint = document.getElementById('swipe-hint');
+if (swipeHint) {
+  document.getElementById('carousel-track').addEventListener('scroll', () => {
+    swipeHint.style.transition = 'opacity 0.5s';
+    swipeHint.style.opacity = '0';
+    setTimeout(() => swipeHint.remove(), 500);
+  }, { once: true });
+}

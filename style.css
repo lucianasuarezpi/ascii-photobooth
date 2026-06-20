@@ -877,3 +877,46 @@ main::-webkit-scrollbar { display: none; }
   .machine-sign-box { font-size: 1rem; letter-spacing: 0.1em; padding: 8px 16px; }
   .machine-poles { gap: 50px; }
 }
+
+/* ─── Swipe hint ────────────────────────────────────────────── */
+.swipe-hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(58, 78, 107, 0.22);
+  border-radius: 20px;
+  padding: 7px 18px;
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--boothie-blue);
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0;
+  animation: swipe-hint-show 5s ease forwards;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(58, 78, 107, 0.1);
+}
+
+.swipe-hint-arrow {
+  font-size: 1.1rem;
+  display: inline-block;
+  animation: swipe-nudge 1.3s ease-in-out infinite;
+}
+
+@keyframes swipe-hint-show {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes swipe-nudge {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
+}
