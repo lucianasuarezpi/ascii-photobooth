@@ -211,6 +211,17 @@ main::-webkit-scrollbar { display: none; }
 .tape--bottom-right{ bottom: -14px; right: 50px; transform: rotate(-1deg); }
 .tape--bottom-left { bottom: -14px; left: 30px;  transform: rotate(2deg); }
 
+.cat-sticker {
+  position: absolute;
+  top: -30px;
+  right: -10px;
+  width: 100px;
+  transform: rotate(10deg);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* CSS-only washi tape fallback (when images missing) */
 .tape[src="assets/washi-tape-1.png"] {
   background: var(--tape-1);

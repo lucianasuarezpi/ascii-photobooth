@@ -836,6 +836,34 @@ function triggerDownload(canvas, filename) {
 // Footer year
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
+// Cat sticker — remove white background
+function removeCatWhiteBg() {
+  const catSticker = document.querySelector('.cat-sticker');
+  if (!catSticker) return;
+  const cvs = document.createElement('canvas');
+  cvs.width = catSticker.naturalWidth;
+  cvs.height = catSticker.naturalHeight;
+  const ctx = cvs.getContext('2d');
+  ctx.drawImage(catSticker, 0, 0);
+  const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+  const d = imgData.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i], g = d[i+1], b = d[i+2];
+    if (r > 180 && g > 180 && b > 180) {
+      const brightness = (r + g + b) / 3;
+      d[i+3] = Math.max(0, Math.round((255 - brightness) * 4));
+    }
+  }
+  ctx.putImageData(imgData, 0, 0);
+  catSticker.src = cvs.toDataURL('image/png');
+  catSticker.style.mixBlendMode = 'normal';
+}
+const catEl = document.querySelector('.cat-sticker');
+if (catEl) {
+  if (catEl.complete) removeCatWhiteBg();
+  else catEl.addEventListener('load', removeCatWhiteBg);
+}
+
 // Swipe hint — hide on first scroll
 const swipeHint = document.getElementById('swipe-hint');
 if (swipeHint) {
