@@ -887,9 +887,11 @@ if (catEl) {
 // Swipe hint — hide on first scroll
 const swipeHint = document.getElementById('swipe-hint');
 if (swipeHint) {
-  document.getElementById('carousel-track').addEventListener('scroll', () => {
-    swipeHint.style.transition = 'opacity 0.5s';
-    swipeHint.style.opacity = '0';
-    setTimeout(() => swipeHint.remove(), 500);
-  }, { once: true });
+  const carouselMain = document.querySelector('main');
+  const totalStations = document.querySelectorAll('.station').length;
+  swipeHint.style.transition = 'opacity 0.4s ease';
+  carouselMain.addEventListener('scroll', () => {
+    const idx = Math.round(carouselMain.scrollLeft / carouselMain.offsetWidth);
+    swipeHint.style.opacity = idx >= totalStations - 1 ? '0' : '1';
+  }, { passive: true });
 }
