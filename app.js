@@ -727,20 +727,28 @@ const customizeStation = (() => {
     ctx.shadowBlur  = 0;
 
     // 3. Overlays (stickers / tape)
-    const wrapRect   = canvasWrap.getBoundingClientRect();
-    const canvasRect = canvas.getBoundingClientRect();
-    const scaleX = W / canvas.offsetWidth;
-    const scaleY = H / canvas.offsetHeight;
+    // Scale from displayed canvas size to output canvas pixel size
+    const displayW = canvas.offsetWidth;
+    const displayH = canvas.offsetHeight;
+    // Canvas is centered inside the wrap — find its offset within the wrap
+    const canvasOffsetLeft = (canvasWrap.offsetWidth  - displayW) / 2;
+    const canvasOffsetTop  = (canvasWrap.offsetHeight - displayH) / 2;
+    const scaleX = result.canvas.width  / displayW;
+    const scaleY = result.canvas.height / displayH;
 
     state.overlays.forEach(el => {
       const elLeft = parseInt(el.style.left) || 0;
       const elTop  = parseInt(el.style.top)  || 0;
       const rot    = parseFloat(el.dataset.rotation || '0') * Math.PI / 180;
 
+      // Map from canvasWrap coords → output canvas coords
+      const ox = pad + (elLeft - canvasOffsetLeft) * scaleX;
+      const oy = pad + (elTop  - canvasOffsetTop)  * scaleY;
+
       if (el.dataset.type === 'sticker') {
         const size = 40;
-        const cx = (elLeft + size / 2) * scaleX;
-        const cy = (elTop  + size / 2) * scaleY;
+        const cx = ox + (size / 2) * scaleX;
+        const cy = oy + (size / 2) * scaleY;
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(rot);
@@ -752,8 +760,8 @@ const customizeStation = (() => {
         ctx.restore();
       } else {
         const tw = 120, th = 28;
-        const cx = (elLeft + tw / 2) * scaleX;
-        const cy = (elTop  + th / 2) * scaleY;
+        const cx = ox + (tw / 2) * scaleX;
+        const cy = oy + (th / 2) * scaleY;
         const tapeColor = el.dataset.value === '1'
           ? 'rgba(160,200,160,0.65)'
           : 'rgba(210,185,130,0.65)';
