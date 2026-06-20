@@ -727,23 +727,21 @@ const customizeStation = (() => {
     ctx.shadowBlur  = 0;
 
     // 3. Overlays (stickers / tape)
-    // Scale from displayed canvas size to output canvas pixel size
-    const displayW = canvas.offsetWidth;
-    const displayH = canvas.offsetHeight;
-    // Canvas is centered inside the wrap — find its offset within the wrap
-    const canvasOffsetLeft = (canvasWrap.offsetWidth  - displayW) / 2;
-    const canvasOffsetTop  = (canvasWrap.offsetHeight - displayH) / 2;
-    const scaleX = result.canvas.width  / displayW;
-    const scaleY = result.canvas.height / displayH;
+    // canvas.width/height already include the paper pad — use them as the scale basis
+    const scaleX = canvas.width  / canvas.offsetWidth;
+    const scaleY = canvas.height / canvas.offsetHeight;
+    // canvas is a flex child inside canvasWrap — offsetLeft/Top give its actual position
+    const canvasLeft = canvas.offsetLeft;
+    const canvasTop  = canvas.offsetTop;
 
     state.overlays.forEach(el => {
       const elLeft = parseInt(el.style.left) || 0;
       const elTop  = parseInt(el.style.top)  || 0;
       const rot    = parseFloat(el.dataset.rotation || '0') * Math.PI / 180;
 
-      // Map from canvasWrap coords → output canvas coords
-      const ox = pad + (elLeft - canvasOffsetLeft) * scaleX;
-      const oy = pad + (elTop  - canvasOffsetTop)  * scaleY;
+      // Map from canvasWrap coords → output canvas coords (no extra pad: it's baked into canvas.width)
+      const ox = (elLeft - canvasLeft) * scaleX;
+      const oy = (elTop  - canvasTop)  * scaleY;
 
       if (el.dataset.type === 'sticker') {
         const size = 40;
