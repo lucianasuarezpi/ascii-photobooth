@@ -215,7 +215,7 @@ main::-webkit-scrollbar { display: none; }
   position: absolute;
   top: -30px;
   right: -10px;
-  width: 100px;
+  width: 80px;
   transform: rotate(10deg);
   mix-blend-mode: multiply;
   pointer-events: none;
