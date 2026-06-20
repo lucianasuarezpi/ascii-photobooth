@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.canva.dev)",
+      "WebFetch(domain:www.canva.com)",
+      "Bash(mkdir -p /Users/lucianasuarezpiedrahita/code_repo_01/assets/stickers)",
+      "Bash(sed -i '' 's|assets/washi-tape-1.png|assets/washi-tape-1.svg|g' /Users/lucianasuarezpiedrahita/code_repo_01/index.html)",
+      "Bash(sed -i '' 's|assets/washi-tape-2.png|assets/washi-tape-2.svg|g' /Users/lucianasuarezpiedrahita/code_repo_01/index.html)",
+      "Bash(sed -i '' \"s|url\\('assets/washi-tape-1.png'\\)|url\\('assets/washi-tape-1.svg'\\)|g\" /Users/lucianasuarezpiedrahita/code_repo_01/style.css)",
+      "Bash(sed -i '' \"s|url\\('assets/washi-tape-2.png'\\)|url\\('assets/washi-tape-2.svg'\\)|g\" /Users/lucianasuarezpiedrahita/code_repo_01/style.css)",
+      "Bash(node --input-type=module)",
+      "Bash(node -e ' *)",
+      "Bash(which node *)",
+      "Bash(python3 -m http.server 8765)",
+      "Bash(curl -s http://localhost:8765/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(kill 11725)",
+      "Bash(mkdir -p /Users/lucianasuarezpiedrahita/code_repo_01/ascii-photobooth && mv /Users/lucianasuarezpiedrahita/code_repo_01/index.html /Users/lucianasuarezpiedrahita/code_repo_01/style.css /Users/lucianasuarezpiedrahita/code_repo_01/app.js /Users/lucianasuarezpiedrahita/code_repo_01/assets /Users/lucianasuarezpiedrahita/code_repo_01/.claude /Users/lucianasuarezpiedrahita/code_repo_01/ascii-photobooth/ && echo \"done\")"
+    ]
+  }
+}

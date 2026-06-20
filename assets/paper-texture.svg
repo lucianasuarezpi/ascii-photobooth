@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+  <defs>
+    <filter id="paper">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feDiffuseLighting in="noise" lighting-color="#c8b89a" surfaceScale="1.5" result="light">
+        <feDistantLight azimuth="45" elevation="60"/>
+      </feDiffuseLighting>
+      <feBlend in="SourceGraphic" in2="light" mode="multiply"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="#c8b89a"/>
+  <rect width="600" height="600" filter="url(#paper)" opacity="0.6"/>
+  <rect width="600" height="600" filter="url(#grain)" opacity="0.08"/>
+</svg>

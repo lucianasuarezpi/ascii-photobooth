@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>boothie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Persistent nav -->
+  <nav class="site-nav">
+    <span class="nav-brand">boothie</span>
+    <div class="nav-dots" id="nav-dots">
+      <span class="nav-dot active" data-slide="0"></span>
+      <span class="nav-dot" data-slide="1"></span>
+      <span class="nav-dot" data-slide="2"></span>
+    </div>
+  </nav>
+
+  <main>
+    <div class="carousel-track" id="carousel-track">
+
+      <!-- ══════════════════════════════════════════
+           STATION 1 — LIVE ASCII CAMERA
+      ══════════════════════════════════════════ -->
+      <section id="ascii-station" class="station">
+        <div class="station-card">
+
+          <img src="assets/washi-tape-1.svg" class="tape tape--top-left" alt="" />
+          <img src="assets/washi-tape-2.svg" class="tape tape--bottom-right" alt="" />
+
+          <div class="station-header">
+            <h2 class="station-title">ASCII Camera</h2>
+          </div>
+
+          <div class="ascii-workspace">
+            <video id="ascii-video" autoplay playsinline muted style="display:none"></video>
+            <canvas id="ascii-sample-canvas" style="display:none"></canvas>
+
+            <div class="ascii-main-row">
+              <!-- Terminal -->
+              <div class="ascii-terminal-col">
+                <div class="terminal-frame">
+                  <div class="terminal-titlebar">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">ascii-cam — 110×55</span>
+                  </div>
+                  <div class="terminal-body">
+                    <pre id="ascii-pre" class="ascii-pre">-- waiting for camera --</pre>
+                    <div id="ascii-countdown" class="ascii-countdown" style="display:none"></div>
+                  </div>
+                </div>
+
+                <div id="ascii-error" class="camera-error" style="display:none">
+                  <span class="camera-error-icon">📷</span>
+                  <p>Camera access denied or unavailable.<br>Check your browser permissions and reload.</p>
+                </div>
+
+                <div class="ascii-controls">
+                  <button id="ascii-start-btn" class="btn btn--primary">Start Camera</button>
+                  <button id="ascii-capture-btn" class="btn btn--accent" disabled>Capture 📸</button>
+                </div>
+              </div>
+
+              <!-- Side panel: style only -->
+              <div class="ascii-side-panel">
+                <div class="side-panel-section">
+                  <div class="side-panel-label">Color Mode</div>
+                  <div class="ascii-style-picker">
+                    <button class="ascii-style-btn active" data-style="classic">
+                      <span class="style-dot" style="background:#39ff14"></span>Classic
+                    </button>
+                    <button class="ascii-style-btn" data-style="bw">
+                      <span class="style-dot" style="background:#111111; border: 1px solid #ccc"></span>B&amp;W
+                    </button>
+                    <button class="ascii-style-btn" data-style="blue">
+                      <span class="style-dot" style="background:#5bc8f5"></span>Blue
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="ascii-result" class="result-panel" style="display:none">
+              <div class="result-label">✦ ASCII Photo captured</div>
+              <canvas id="ascii-result-canvas" class="result-preview"></canvas>
+              <div class="result-actions">
+                <button id="ascii-download-btn" class="btn btn--outline">Download</button>
+                <button id="ascii-to-customize-btn" class="btn btn--primary">Customize →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════
+           STATION 2 — PHOTO BOOTH
+      ══════════════════════════════════════════ -->
+      <section id="photobooth-station" class="station">
+        <div class="station-card">
+
+          <img src="assets/washi-tape-2.svg" class="tape tape--top-right" alt="" />
+          <img src="assets/washi-tape-1.svg" class="tape tape--bottom-left" alt="" />
+
+          <div class="photobooth-workspace">
+            <video id="pb-video" autoplay playsinline muted style="display:none"></video>
+            <canvas id="pb-capture-canvas" style="display:none"></canvas>
+
+            <!-- Machine -->
+            <div class="machine">
+
+              <!-- Sign on poles -->
+              <div class="machine-sign-wrap">
+                <div class="machine-sign-box">PHOTOBOOTH</div>
+                <div class="machine-poles">
+                  <div class="machine-pole"></div>
+                  <div class="machine-pole"></div>
+                </div>
+              </div>
+
+              <!-- Body: two panels -->
+              <div class="machine-body">
+
+                <!-- LEFT: display window + controls -->
+                <div class="machine-panel-left">
+                  <div class="machine-window">
+                    <div id="pb-viewfinder-wrap" class="pb-viewfinder-wrap" style="display:none">
+                      <video id="pb-video-display" autoplay playsinline muted class="pb-viewfinder-display"></video>
+                      <div id="pb-countdown" class="ascii-countdown" style="display:none"></div>
+                    </div>
+                    <div class="pb-slots" id="pb-slots">
+                      <div class="pb-slot" data-index="0"><span class="pb-slot-num">1</span></div>
+                      <div class="pb-slot" data-index="1"><span class="pb-slot-num">2</span></div>
+                      <div class="pb-slot" data-index="2"><span class="pb-slot-num">3</span></div>
+                      <div class="pb-slot" data-index="3"><span class="pb-slot-num">4</span></div>
+                    </div>
+                  </div>
+                  <!-- Controls below window -->
+                  <div class="pb-controls">
+                    <button id="pb-camera-btn" class="btn btn--primary">Take Photo 📷</button>
+                    <label class="btn btn--outline" id="pb-upload-label">
+                      Upload Images
+                      <input type="file" id="pb-upload-input" accept="image/*" multiple style="display:none" />
+                    </label>
+                    <button id="pb-clear-btn" class="btn btn--ghost">Clear All</button>
+                  </div>
+                </div>
+
+                <!-- RIGHT: booth entrance decoration -->
+                <div class="machine-panel-right">
+                  <!-- Curtains -->
+                  <svg class="curtain-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <path d="M18 0 Q8 32 18 65 Q28 98 18 130 Q8 162 18 195 Q28 228 18 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M52 0 Q42 32 52 65 Q62 98 52 130 Q42 162 52 195 Q62 228 52 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M86 0 Q76 32 86 65 Q96 98 86 130 Q76 162 86 195 Q96 228 86 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M120 0 Q110 32 120 65 Q130 98 120 130 Q110 162 120 195 Q130 228 120 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M154 0 Q144 32 154 65 Q164 98 154 130 Q144 162 154 195 Q164 228 154 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M188 0 Q178 32 188 65 Q198 98 188 130 Q178 162 188 195 Q198 228 188 260" fill="none" stroke="#3a4e6b" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                  <!-- Stool -->
+                  <svg class="stool-svg" viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <ellipse cx="55" cy="38" rx="42" ry="11" fill="none" stroke="#3a4e6b" stroke-width="2.5"/>
+                    <ellipse cx="55" cy="112" rx="30" ry="8" fill="none" stroke="#3a4e6b" stroke-width="2.5"/>
+                    <!-- white mask hides back arc of base ellipse between the pedestal lines -->
+                    <rect x="46" y="102" width="18" height="10" fill="white"/>
+                    <path d="M 51 49 C 50 70 50 92 47 108" fill="none" stroke="#3a4e6b" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 59 49 C 60 70 60 92 63 108" fill="none" stroke="#3a4e6b" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+
+              </div><!-- /.machine-body -->
+            </div><!-- /.machine -->
+
+            <div id="pb-result" class="result-panel" style="display:none">
+              <div class="result-label">✦ Strip ready</div>
+              <canvas id="pb-strip-canvas" class="result-preview result-preview--strip"></canvas>
+              <div class="result-actions">
+                <button id="pb-download-btn" class="btn btn--outline">Download Strip</button>
+                <button id="pb-to-customize-btn" class="btn btn--primary">Customize →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════
+           STATION 3 — CUSTOMIZE & DOWNLOAD
+      ══════════════════════════════════════════ -->
+      <section id="customize-station" class="station">
+        <div class="station-card">
+
+          <img src="assets/washi-tape-1.svg" class="tape tape--top-left" alt="" />
+
+          <div class="station-header">
+            <h2 class="station-title">Customize &amp; Download</h2>
+            <p class="station-desc">Dress up your photo with stickers, tape, and a title. Or download it plain.</p>
+          </div>
+
+          <div id="customize-empty" class="customize-empty">
+            <p>Capture a photo from <a href="#" data-slide="0">Station 01</a> or <a href="#" data-slide="1">Station 02</a> first, then send it here.</p>
+          </div>
+
+          <div id="customize-ui" class="customize-ui" style="display:none">
+            <div class="customize-badge" id="customize-badge">ASCII Photo</div>
+
+            <div class="customize-layout">
+              <div class="customize-canvas-wrap" id="customize-canvas-wrap">
+                <canvas id="customize-canvas" class="customize-canvas"></canvas>
+              </div>
+
+              <div class="customize-tools">
+                <div class="tool-section">
+                  <div class="tool-label">Stickers</div>
+                  <div class="sticker-palette" id="sticker-palette"></div>
+                </div>
+
+                <div class="tool-section">
+                  <div class="tool-label">Washi Tape</div>
+                  <div class="tape-palette" id="tape-palette">
+                    <button class="tape-swatch" data-tape="1">tape 1</button>
+                    <button class="tape-swatch" data-tape="2">tape 2</button>
+                  </div>
+                </div>
+
+                <div class="tool-section">
+                  <div class="tool-label">Title</div>
+                  <input type="text" id="customize-title" class="customize-input" placeholder="add a title…" maxlength="40" />
+                </div>
+
+                <div class="tool-section">
+                  <div class="tool-label">Date</div>
+                  <label class="toggle-label">
+                    <input type="checkbox" id="customize-date-toggle" />
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    Show date
+                  </label>
+                </div>
+
+                <div class="tool-section tool-section--download">
+                  <button id="customize-download-btn" class="btn btn--accent btn--full">Download ↓</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /.carousel-track -->
+  </main>
+
+  <footer class="site-footer">
+    <p>ascii photobooth &mdash; no data leaves your browser &mdash; <span id="footer-year"></span></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

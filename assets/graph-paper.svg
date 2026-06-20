@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+  <defs>
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="multiply" result="blend"/>
+      <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <radialGradient id="vig" cx="50%" cy="50%" r="70%">
+      <stop offset="0%"   stop-color="#f5f1e8" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#c8bfaa" stop-opacity="0.25"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="#f5f1e8"/>
+  <g stroke="#9a96c0" stroke-width="0.7" opacity="0.45">
+    <line x1="50"  y1="0" x2="50"  y2="400"/>
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="150" y1="0" x2="150" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="250" y1="0" x2="250" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="350" y1="0" x2="350" y2="400"/>
+    <line x1="0" y1="50"  x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="250" x2="400" y2="250"/>
+    <line x1="0" y1="300" x2="400" y2="300"/>
+    <line x1="0" y1="350" x2="400" y2="350"/>
+  </g>
+  <rect width="400" height="400" fill="#ddd5c4" filter="url(#grain)" opacity="0.22"/>
+  <rect width="400" height="400" fill="url(#vig)"/>
+</svg>
