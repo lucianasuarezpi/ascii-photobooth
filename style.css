@@ -468,7 +468,8 @@ main::-webkit-scrollbar { display: none; }
 
 .ascii-controls { display: flex; flex-direction: row; gap: 10px; margin-top: 10px; }
 
-#ascii-station .station-title { color: var(--boothie-blue); }
+#ascii-station .station-title,
+#customize-station .station-title { color: var(--boothie-blue); }
 
 /* camera error */
 .camera-error {
